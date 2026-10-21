@@ -3,7 +3,7 @@
 Install the latest stable release:
 
 ```sh
-brew install --cask pedrotmr/aerospace-tabs/aerospace-tabs
+brew install --cask pedrotmr/aerospace-tabs/pedrotmr-aerospace-tabs
 ```
 
 Requires macOS 14 or later and AeroSpace. Grant Accessibility permission on first launch; Screen Recording is optional for window previews.
