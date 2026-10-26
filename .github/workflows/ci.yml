@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-        with:
-          persist-credentials: false
+      - name: Check audit script
+        run: bash -n scripts/audit-cask.sh
       - name: Audit the cask
         run: scripts/audit-cask.sh
