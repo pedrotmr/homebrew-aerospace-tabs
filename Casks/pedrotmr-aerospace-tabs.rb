@@ -1,6 +1,6 @@
 cask "pedrotmr-aerospace-tabs" do
-  version "0.1.1"
-  sha256 "69bbad1776bb5a49d8efcbcf8f65607bb032f3de908d5d5866b9bf5f846e2e5f"
+  version "0.1.2"
+  sha256 "92979f91944800133e770b92579fe49fd77e1ff6d883916d57847982672fc33a"
 
   url "https://github.com/pedrotmr/aerospace-tabs/releases/download/v#{version}/AerospaceTabs.zip"
   name "Aerospace Tabs"
