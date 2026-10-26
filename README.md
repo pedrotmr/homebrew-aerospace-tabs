@@ -1,4 +1,4 @@
-# Homebrew tap for Aerospace Tabs
+# Homebrew tap for AerospaceTabs
 
 Install the latest stable release. Both commands install the same app.
 
