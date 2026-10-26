@@ -17,7 +17,9 @@ jobs:
     name: Audit cask
     runs-on: macos-26
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
         with:
           persist-credentials: false
       - name: Audit the cask
