@@ -1,0 +1,145 @@
+name: Sync Homebrew cask
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-homebrew-cask
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out tap
+        uses: actions/checkout@v4
+
+      - name: Update cask from the latest published release
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          cask="Casks/pedrotmr-aerospace-tabs.rb"
+          release_json="$(curl --fail --silent --show-error \
+            -H 'Accept: application/vnd.github+json' \
+            -H 'X-GitHub-Api-Version: 2022-11-28' \
+            https://api.github.com/repos/pedrotmr/aerospace-tabs/releases/latest)"
+
+          tag_name="$(jq -r '.tag_name // empty' <<< "$release_json")"
+          if [[ ! "$tag_name" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+            echo "::error::Unexpected latest release tag: $tag_name"
+            exit 1
+          fi
+          version="${tag_name#v}"
+
+          if [[ "$(jq -r '.draft' <<< "$release_json")" != "false" || \
+                "$(jq -r '.prerelease' <<< "$release_json")" != "false" ]]; then
+            echo "::error::Latest release must be published and stable."
+            exit 1
+          fi
+
+          asset="$(jq -ce '[.assets[] | select(.name == "AerospaceTabs.zip")] | if length == 1 then .[0] else error("expected one AerospaceTabs.zip asset") end' <<< "$release_json")"
+          asset_url="$(jq -r '.browser_download_url' <<< "$asset")"
+          asset_digest="$(jq -r '.digest // empty' <<< "$asset")"
+          if [[ ! "$asset_digest" =~ ^sha256:[0-9a-f]{64}$ ]]; then
+            echo "::error::Release asset has no valid SHA-256 digest."
+            exit 1
+          fi
+          case "$asset_url" in
+            https://github.com/pedrotmr/aerospace-tabs/releases/download/*/AerospaceTabs.zip) ;;
+            *) echo "::error::Unexpected release asset URL: $asset_url"; exit 1 ;;
+          esac
+
+          archive="$RUNNER_TEMP/AerospaceTabs.zip"
+          curl --fail --location --retry 3 --silent --show-error \
+            --output "$archive" "$asset_url"
+          expected_sha="${asset_digest#sha256:}"
+          actual_sha="$(sha256sum "$archive" | awk '{print $1}')"
+          if [[ "$actual_sha" != "$expected_sha" ]]; then
+            echo "::error::Downloaded asset digest does not match GitHub's release digest."
+            exit 1
+          fi
+
+          python3 - "$archive" "$version" <<'PY'
+          import plistlib
+          import sys
+          import zipfile
+
+          archive_path, expected_version = sys.argv[1:]
+          with zipfile.ZipFile(archive_path) as archive:
+              info = plistlib.loads(
+                  archive.read("AerospaceTabs.app/Contents/Info.plist")
+              )
+              icon_name = info.get("CFBundleIconFile")
+              if info.get("CFBundleShortVersionString") != expected_version:
+                  raise SystemExit("App bundle version does not match release tag")
+              if icon_name != "AerospaceTabs.icns":
+                  raise SystemExit("App bundle does not declare the expected icon")
+              icon_path = f"AerospaceTabs.app/Contents/Resources/{icon_name}"
+              if not archive.read(icon_path):
+                  raise SystemExit("App bundle icon is empty")
+          PY
+
+          current_version="$(sed -n 's/^  version "\([^"]*\)"$/\1/p' "$cask")"
+          current_sha="$(sed -n 's/^  sha256 "\([0-9a-f]*\)"$/\1/p' "$cask")"
+          if [[ ! "$current_version" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ || \
+                ! "$current_sha" =~ ^[0-9a-f]{64}$ ]]; then
+            echo "::error::Could not read the current cask version and SHA-256."
+            exit 1
+          fi
+
+          comparison="$(python3 - "$current_version" "$version" <<'PY'
+          import sys
+
+          current = tuple(map(int, sys.argv[1].split(".")))
+          latest = tuple(map(int, sys.argv[2].split(".")))
+          print("newer" if latest > current else "older" if latest < current else "equal")
+          PY
+          )"
+
+          if [[ "$comparison" == "older" ]]; then
+            echo "Current cask $current_version is newer than release $version; leaving it unchanged."
+            exit 0
+          fi
+          if [[ "$comparison" == "equal" ]]; then
+            if [[ "$current_sha" != "$expected_sha" ]]; then
+              echo "::error::The published asset changed without a version bump."
+              exit 1
+            fi
+            echo "Cask is already current at $version."
+            exit 0
+          fi
+
+          python3 - "$cask" "$version" "$expected_sha" <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+
+          cask_path, version, sha256 = sys.argv[1:]
+          path = Path(cask_path)
+          text = path.read_text()
+          text, version_count = re.subn(
+              r'(?m)^  version "[^"]+"$', f'  version "{version}"', text, count=1
+          )
+          text, sha_count = re.subn(
+              r'(?m)^  sha256 "[0-9a-f]+"$', f'  sha256 "{sha256}"', text, count=1
+          )
+          if version_count != 1 or sha_count != 1:
+              raise SystemExit("Could not update exactly one cask version and SHA-256")
+          path.write_text(text)
+          PY
+
+          ruby -c "$cask"
+          git diff --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$cask"
+          git commit -m "chore: update AeroSpace Tabs cask to v$version"
+          git push origin HEAD:main
