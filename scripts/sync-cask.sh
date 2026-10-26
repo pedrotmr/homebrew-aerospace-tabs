@@ -90,8 +90,8 @@ signature_details=$(codesign --display --verbose=4 "$app" 2>&1)
 framework_root="$app/Contents/Frameworks/Sparkle.framework"
 for binary in "$app/Contents/MacOS/AerospaceTabs" "$framework/Sparkle" "$framework/Autoupdate" \
   "$framework/Updater.app/Contents/MacOS/Updater"; do
-  lipo -verify_arch arm64 "$binary"
-  lipo -verify_arch x86_64 "$binary"
+  lipo "$binary" -verify_arch arm64
+  lipo "$binary" -verify_arch x86_64
 done
 for component in "$framework/Autoupdate" "$framework/Updater.app" "$framework_root"; do
   codesign --verify --strict --verbose=2 "$component"
