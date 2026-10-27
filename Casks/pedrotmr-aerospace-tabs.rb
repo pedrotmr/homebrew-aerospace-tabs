@@ -3,7 +3,7 @@ cask "pedrotmr-aerospace-tabs" do
   sha256 "9a267b8d1a5bf34faff8e787f2fd5ae28b391be63adafdcac89f8f4dcb534d9d"
 
   url "https://github.com/pedrotmr/aerospace-tabs/releases/download/v#{version}/AerospaceTabs-#{version}.zip"
-  name "AeroSpace Tabs"
+  name "AeroSpaceTabs"
   desc "Window tabs and overview for AeroSpace"
   homepage "https://github.com/pedrotmr/aerospace-tabs"
 

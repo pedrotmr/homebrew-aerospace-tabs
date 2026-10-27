@@ -1,6 +1,6 @@
-# Homebrew tap for Aerospace Tabs
+# Homebrew tap for AeroSpaceTabs
 
-This tap installs the latest stable version of [Aerospace Tabs](https://github.com/pedrotmr/aerospace-tabs).
+This tap installs the latest stable version of [AeroSpaceTabs](https://github.com/pedrotmr/aerospace-tabs).
 
 ## Install
 
@@ -19,7 +19,7 @@ brew install --cask pedrotmr-aerospace-tabs
 
 ## Update
 
-To update only Aerospace Tabs, run:
+To update only AeroSpaceTabs, run:
 
 ```sh
 brew update
@@ -30,7 +30,7 @@ The tap follows stable releases. Drafts and prereleases are not installed.
 
 ## Direct download
 
-Download the DMG or ZIP from the [latest stable release](https://github.com/pedrotmr/aerospace-tabs/releases/latest). Direct installs can update with **Check for Updates…** in Aerospace Tabs. See the [app install guide](https://github.com/pedrotmr/aerospace-tabs#install).
+Download the DMG or ZIP from the [latest stable release](https://github.com/pedrotmr/aerospace-tabs/releases/latest). Direct installs can update with **Check for Updates…** in AeroSpaceTabs. See the [app install guide](https://github.com/pedrotmr/aerospace-tabs#install).
 
 ## Requirements
 
