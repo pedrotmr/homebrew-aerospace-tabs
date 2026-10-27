@@ -1,6 +1,6 @@
 cask "pedrotmr-aerospace-tabs" do
-  version "0.2.0"
-  sha256 "9a267b8d1a5bf34faff8e787f2fd5ae28b391be63adafdcac89f8f4dcb534d9d"
+  version "0.2.1"
+  sha256 "830ebdf7f49f035cb2818c2ab9da51bbaad6df51d0d5be78809c5ffe0b62cb7d"
 
   url "https://github.com/pedrotmr/aerospace-tabs/releases/download/v#{version}/AerospaceTabs-#{version}.zip"
   name "AeroSpaceTabs"
@@ -34,7 +34,7 @@ cask "pedrotmr-aerospace-tabs" do
           "com.pedrotmr.AerospaceTabs.homebrew",
           "managedByHomebrewVersion",
           "-string",
-          "0.2.0",
+          "0.2.1",
         ],
         writable_paths: ["Library/Preferences"],
         writable_base:  :home
