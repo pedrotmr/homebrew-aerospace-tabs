@@ -28,13 +28,7 @@ brew upgrade --cask --greedy-auto-updates pedrotmr/aerospace-tabs/pedrotmr-aeros
 
 This tap follows stable releases. Drafts and prereleases are not installed.
 
-## ⬇️ Direct download
-
-1. Download the latest stable [DMG or ZIP](https://github.com/pedrotmr/aerospace-tabs/releases/latest).
-2. Open the DMG or extract the ZIP.
-3. Move `AerospaceTabs.app` to Applications.
-
-To update a direct download, choose **Check for Updates…** in AeroSpaceTabs. See the [app install guide](https://github.com/pedrotmr/aerospace-tabs#install).
+Prefer a direct download? Get the [latest stable release](https://github.com/pedrotmr/aerospace-tabs/releases/latest). The [AeroSpaceTabs README](https://github.com/pedrotmr/aerospace-tabs) has the install steps.
 
 ## ⚙️ Requirements
 
