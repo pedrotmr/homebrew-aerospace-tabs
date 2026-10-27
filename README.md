@@ -19,6 +19,6 @@ Requires macOS 14 or later and AeroSpace. Grant Accessibility permission on firs
 
 The cask installs the universal app from the GitHub Release pinned in `Casks/pedrotmr-aerospace-tabs.rb`.
 
-The app repository updates this cask after a stable release is published. Its workflow checks the versioned ZIP, Developer ID signature, notarization ticket, Gatekeeper result, icon, and Sparkle feed. It calculates the ZIP's SHA-256, runs `brew audit --cask --strict --online`, and pushes the cask update. Drafts and prereleases do not change the tap.
+The app repository updates this cask after a stable release is published. Its workflow checks the versioned ZIP, Developer ID signature, notarization ticket, Gatekeeper result, icon, and Sparkle feed. It calculates the ZIP's SHA-256, runs `brew audit --cask --strict --online`, and pushes the cask update. Drafts and prereleases do not change the tap. This repository's CI checks pull requests and pushes to `main`; it audits a cask only when one exists.
 
-Updates use `brew update && brew upgrade`. A Sparkle update can move the app ahead of the cask; avoid explicitly upgrading the named cask or using Homebrew's greedy flags, which may reinstall the older cask version.
+The current v0.1.2 cask installs an app without Sparkle. It updates through Homebrew. When the tap points to a Sparkle-enabled release, the app workflow adds Homebrew's `auto_updates true` setting. For those versions, use `brew update && brew upgrade`; naming the cask or using greedy upgrade options can reinstall an older cask version. [Homebrew explains this behavior](https://docs.brew.sh/FAQ#how-does-brew-upgrade-handle-apps-that-update-themselves).
