@@ -1,39 +1,34 @@
-# 🍺 Homebrew tap for AeroSpaceTabs
+# 🍺 AeroSpaceTabs Homebrew
 
-Install the latest stable version of [AeroSpaceTabs](https://github.com/pedrotmr/aerospace-tabs) with Homebrew.
+Install and update [AeroSpaceTabs](https://github.com/pedrotmr/aerospace-tabs) using Homebrew.
 
-## 📦 Install
-
-### Full command
+## Install
 
 ```sh
 brew install --cask pedrotmr/aerospace-tabs/pedrotmr-aerospace-tabs
 ```
 
-### Tap once, then use the short command
+Or tap first for a shorter command:
 
 ```sh
 brew tap pedrotmr/aerospace-tabs
 brew install --cask pedrotmr-aerospace-tabs
 ```
 
-## 🔄 Update
-
-To update only AeroSpaceTabs:
+## Update
 
 ```sh
 brew update
-brew upgrade --cask --greedy-auto-updates pedrotmr/aerospace-tabs/pedrotmr-aerospace-tabs
+brew upgrade --cask --greedy-auto-updates pedrotmr-aerospace-tabs
 ```
 
-This tap follows stable releases. Drafts and prereleases are not installed.
+## Requirements
 
-Prefer a direct download? Get the [latest stable release](https://github.com/pedrotmr/aerospace-tabs/releases/latest). The [AeroSpaceTabs README](https://github.com/pedrotmr/aerospace-tabs) has the install steps.
+- macOS 14+ with AeroSpace installed.
+- Accessibility permission required.
+- Screen Recording permission optional for previews.
 
-## ⚙️ Requirements
-
-- macOS 14 or later, with AeroSpace installed and running.
-- Accessibility access is required. Screen Recording is optional for window previews.
+Only stable releases are distributed.
 
 ## Links
 
