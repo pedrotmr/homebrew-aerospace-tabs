@@ -1,19 +1,82 @@
 cask "pedrotmr-aerospace-tabs" do
-  version "0.1.2"
-  sha256 "92979f91944800133e770b92579fe49fd77e1ff6d883916d57847982672fc33a"
+  version "0.2.0"
+  sha256 "9a267b8d1a5bf34faff8e787f2fd5ae28b391be63adafdcac89f8f4dcb534d9d"
 
-  url "https://github.com/pedrotmr/aerospace-tabs/releases/download/v#{version}/AerospaceTabs.zip"
-  name "Aerospace Tabs"
+  url "https://github.com/pedrotmr/aerospace-tabs/releases/download/v#{version}/AerospaceTabs-#{version}.zip"
+  name "AeroSpace Tabs"
   desc "Window tabs and overview for AeroSpace"
   homepage "https://github.com/pedrotmr/aerospace-tabs"
 
+  livecheck do
+    url "https://github.com/pedrotmr/aerospace-tabs/releases/latest/download/appcast.xml"
+    strategy :sparkle, &:short_version
+  end
+
+  auto_updates true
   depends_on macos: :sonoma
 
   app "AerospaceTabs.app"
 
-  caveats <<~EOS
-    Requires AeroSpace to be installed and running.
-    Accessibility permission enables global shortcuts and Dock notification badges.
-    Screen Recording permission is optional and enables window previews.
-  EOS
+  postflight_steps do
+    run "/usr/bin/defaults",
+        args:           [
+          "write",
+          "com.pedrotmr.AerospaceTabs.homebrew",
+          "managedByHomebrew",
+          "-bool",
+          "true",
+        ],
+        writable_paths: ["Library/Preferences"],
+        writable_base:  :home
+    run "/usr/bin/defaults",
+        args:           [
+          "write",
+          "com.pedrotmr.AerospaceTabs.homebrew",
+          "managedByHomebrewVersion",
+          "-string",
+          "0.2.0",
+        ],
+        writable_paths: ["Library/Preferences"],
+        writable_base:  :home
+    run "/usr/bin/defaults",
+        args:           [
+          "write",
+          "com.pedrotmr.AerospaceTabs.homebrew",
+          "managedByHomebrewBundlePath",
+          "-string",
+          "{{appdir}}/AerospaceTabs.app",
+        ],
+        writable_paths: ["Library/Preferences"],
+        writable_base:  :home
+  end
+
+  uninstall_postflight_steps do
+    run "/usr/bin/defaults",
+        args:           [
+          "delete",
+          "com.pedrotmr.AerospaceTabs.homebrew",
+          "managedByHomebrew",
+        ],
+        must_succeed:   false,
+        writable_paths: ["Library/Preferences"],
+        writable_base:  :home
+    run "/usr/bin/defaults",
+        args:           [
+          "delete",
+          "com.pedrotmr.AerospaceTabs.homebrew",
+          "managedByHomebrewBundlePath",
+        ],
+        must_succeed:   false,
+        writable_paths: ["Library/Preferences"],
+        writable_base:  :home
+    run "/usr/bin/defaults",
+        args:           [
+          "delete",
+          "com.pedrotmr.AerospaceTabs.homebrew",
+          "managedByHomebrewVersion",
+        ],
+        must_succeed:   false,
+        writable_paths: ["Library/Preferences"],
+        writable_base:  :home
+  end
 end
