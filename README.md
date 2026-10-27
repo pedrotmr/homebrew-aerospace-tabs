@@ -23,10 +23,14 @@ To update only Aerospace Tabs, run:
 
 ```sh
 brew update
-brew upgrade --cask pedrotmr/aerospace-tabs/pedrotmr-aerospace-tabs
+brew upgrade --cask --greedy-auto-updates pedrotmr/aerospace-tabs/pedrotmr-aerospace-tabs
 ```
 
 The tap follows stable releases. Drafts and prereleases are not installed.
+
+## Direct download
+
+Download the DMG or ZIP from the [latest stable release](https://github.com/pedrotmr/aerospace-tabs/releases/latest). Direct installs can update with **Check for Updates…** in Aerospace Tabs. See the [app install guide](https://github.com/pedrotmr/aerospace-tabs#install).
 
 ## Requirements
 
