@@ -32,7 +32,7 @@ This tap follows stable releases. Drafts and prereleases are not installed.
 
 1. Download the latest stable [DMG or ZIP](https://github.com/pedrotmr/aerospace-tabs/releases/latest).
 2. Open the DMG or extract the ZIP.
-3. Move `AeroSpaceTabs.app` to Applications.
+3. Move `AerospaceTabs.app` to Applications.
 
 To update a direct download, choose **Check for Updates…** in AeroSpaceTabs. See the [app install guide](https://github.com/pedrotmr/aerospace-tabs#install).
 
