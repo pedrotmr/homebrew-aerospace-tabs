@@ -1,39 +1,47 @@
-# Homebrew tap for AeroSpaceTabs
+# 🍺 Homebrew tap for AeroSpaceTabs
 
-This tap installs the latest stable version of [AeroSpaceTabs](https://github.com/pedrotmr/aerospace-tabs).
+Install the latest stable version of [AeroSpaceTabs](https://github.com/pedrotmr/aerospace-tabs) with Homebrew.
 
-## Install
+## 📦 Install
 
-Use the full command:
+### Full command
 
 ```sh
 brew install --cask pedrotmr/aerospace-tabs/pedrotmr-aerospace-tabs
 ```
 
-Or add the tap once, then use its shorter cask name:
+### Tap once, then use the short command
 
 ```sh
 brew tap pedrotmr/aerospace-tabs
 brew install --cask pedrotmr-aerospace-tabs
 ```
 
-## Update
+## 🔄 Update
 
-To update only AeroSpaceTabs, run:
+To update only AeroSpaceTabs:
 
 ```sh
 brew update
 brew upgrade --cask --greedy-auto-updates pedrotmr/aerospace-tabs/pedrotmr-aerospace-tabs
 ```
 
-The tap follows stable releases. Drafts and prereleases are not installed.
+This tap follows stable releases. Drafts and prereleases are not installed.
 
-## Direct download
+## ⬇️ Direct download
 
-Download the DMG or ZIP from the [latest stable release](https://github.com/pedrotmr/aerospace-tabs/releases/latest). Direct installs can update with **Check for Updates…** in AeroSpaceTabs. See the [app install guide](https://github.com/pedrotmr/aerospace-tabs#install).
+1. Download the latest stable [DMG or ZIP](https://github.com/pedrotmr/aerospace-tabs/releases/latest).
+2. Open the DMG or extract the ZIP.
+3. Move `AeroSpaceTabs.app` to Applications.
 
-## Requirements
+To update a direct download, choose **Check for Updates…** in AeroSpaceTabs. See the [app install guide](https://github.com/pedrotmr/aerospace-tabs#install).
 
-- macOS 14 or later.
-- AeroSpace must be installed and running.
-- Allow Accessibility access on first launch. Screen Recording is optional and enables window previews.
+## ⚙️ Requirements
+
+- macOS 14 or later, with AeroSpace installed and running.
+- Accessibility access is required. Screen Recording is optional for window previews.
+
+## Links
+
+- 🐛 [Report a problem](https://github.com/pedrotmr/aerospace-tabs/issues)
+- 📖 [AeroSpaceTabs README](https://github.com/pedrotmr/aerospace-tabs)
