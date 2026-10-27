@@ -19,11 +19,11 @@ brew install --cask pedrotmr-aerospace-tabs
 
 ## Update
 
-Homebrew manages updates for this copy. Run:
+To update only Aerospace Tabs, run:
 
 ```sh
 brew update
-brew upgrade
+brew upgrade --cask pedrotmr/aerospace-tabs/pedrotmr-aerospace-tabs
 ```
 
 The tap follows stable releases. Drafts and prereleases are not installed.
