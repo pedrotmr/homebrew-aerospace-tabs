@@ -18,8 +18,7 @@ brew install --cask pedrotmr-aerospace-tabs
 ## Update
 
 ```sh
-brew update
-brew upgrade --cask --greedy-auto-updates pedrotmr-aerospace-tabs
+brew upgrade --cask pedrotmr/aerospace-tabs/pedrotmr-aerospace-tabs
 ```
 
 ## Requirements
